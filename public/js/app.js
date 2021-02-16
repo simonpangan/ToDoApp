@@ -1963,10 +1963,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       form: new Form({
+        name: "",
         email: "",
         password: ""
       })
@@ -1974,9 +1984,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     register: function register() {
-      this.form.post('/api/auth/login').then(function (_ref) {
-        var data = _ref.data;
-        console.log(data);
+      var _this = this;
+
+      this.form.post('/api/auth/signup').then(function () {
+        alert('Success');
+
+        _this.$router.push('/login');
       });
     }
   },
@@ -38849,6 +38862,40 @@ var render = function() {
             "div",
             { staticClass: "form-group" },
             [
+              _c("label", [_vm._v("Name")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.name,
+                    expression: "form.name"
+                  }
+                ],
+                staticClass: "form-control",
+                class: { "is-invalid": _vm.form.errors.has("name") },
+                attrs: { type: "text", name: "name" },
+                domProps: { value: _vm.form.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "name", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("has-error", { attrs: { form: _vm.form, field: "name" } })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
               _c("label", [_vm._v("Email")]),
               _vm._v(" "),
               _c("input", {
@@ -38861,8 +38908,8 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                class: { "is-invalid": _vm.form.errors.has("username") },
-                attrs: { type: "text", name: "username" },
+                class: { "is-invalid": _vm.form.errors.has("email") },
+                attrs: { type: "email", name: "email" },
                 domProps: { value: _vm.form.email },
                 on: {
                   input: function($event) {
@@ -38874,7 +38921,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("has-error", { attrs: { form: _vm.form, field: "username" } })
+              _c("has-error", { attrs: { form: _vm.form, field: "email" } })
             ],
             1
           ),
@@ -38914,12 +38961,54 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
+            "div",
+            { staticClass: "form-group" },
+            [
+              _c("label", [_vm._v("Confirm Password")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.password_confirmation,
+                    expression: "form.password_confirmation"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "is-invalid": _vm.form.errors.has("password_confirmation")
+                },
+                attrs: { type: "password", name: "password_confirmation" },
+                domProps: { value: _vm.form.password_confirmation },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.form,
+                      "password_confirmation",
+                      $event.target.value
+                    )
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("has-error", {
+                attrs: { form: _vm.form, field: "password_confirmation" }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
             "button",
             {
               staticClass: "btn btn-primary",
               attrs: { disabled: _vm.form.busy, type: "submit" }
             },
-            [_vm._v("\n      Log In\n    ")]
+            [_vm._v("\n      Register\n    ")]
           )
         ]
       )
